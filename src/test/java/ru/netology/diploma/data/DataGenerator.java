@@ -1,7 +1,6 @@
 package ru.netology.diploma.data;
 
 import com.github.javafaker.Faker;
-import lombok.Value;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,48 +8,49 @@ import java.util.Locale;
 import java.util.Random;
 
 public class DataGenerator {
+
+
+
     private DataGenerator() {
+
+    }
+    private static String approvedCard = "4444444444444441";
+    private static String declinedCard = "4444444444444442";
+    private static String notRegistredCard = "4444444444444444";
+
+//Генераторы месяца
+   public static String getGenMonth() {
+       return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+
     }
 
-    public static String generateMonth(String locale) {
-        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+    public static String generateYear() {
+        var year = new String[]{"23","24","25","26","27","28"};
+        return year[new Random().nextInt(year.length)];
     }
 
 
-    public static String generateYear(String locale) {
-        var cities = new String[]{"Челябинск", "Краснодар","Тюмень","Москва", "Казань"};
-        return cities[new Random().nextInt(cities.length)];
-    }
-
-
-    public static String generateName(String locale) {
+    public static String generateOwner() {
         var faker = new Faker(new Locale("eng"));
         return faker.name().lastName() +" " + faker.name().firstName();
     }
-
-
-    public static String generatePhone(String locale) {
-        Faker faker = new Faker(new Locale("ru"));
-        return faker.phoneNumber().phoneNumber();
+    public static int getGenCvc() {
+        int min = 100;
+        int max = 999;
+        return min + (int)(Math.random()*max);
     }
 
 
-    public static class Registration {
-        private Registration() {
-        }
-
-        public static UserInfo generateUser(String locale) {
-            return new UserInfo(generateCity(locale), generateName(locale), generatePhone(locale));
-
-
-        }
-
+    public static String getApprovedCard() {
+        return approvedCard;
     }
 
-    @Value
-    public static class UserInfo {
-        String city;
-        String name;
-        String phone;
+    public static String getDeclinedCard() {
+        return declinedCard;
     }
+
+    public static String getNotRegistredCard() {
+        return notRegistredCard;
+    }
+
 }
