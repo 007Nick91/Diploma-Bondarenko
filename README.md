@@ -18,9 +18,10 @@
 [Task Pages](https://github.com/netology-code/qa-diploma#readme).
 
 
-[Plan.md](https://github.com/007Nick91/Diploma-Bondarenko/blob/main/docs/Plan.md)
-[Report.md](https://github.com/007Nick91/Diploma-Bondarenko/blob/main/docs/Report.md)
-[Summary.md](https://github.com/007Nick91/Diploma-Bondarenko/blob/main/docs/Summary.md)
+  - [Plan.md](https://github.com/007Nick91/Diploma-Bondarenko/blob/main/docs/Plan.md)
+  - [Report.md](https://github.com/007Nick91/Diploma-Bondarenko/blob/main/docs/Report.md)
+  - [Summary.md](https://github.com/007Nick91/Diploma-Bondarenko/blob/main/docs/Summary.md)
+ 
 
 ### Инструкция.
 Для того, чтобы получить копию данного проекта необходимо запустить программу "GitHub", пройти по ссылке 
