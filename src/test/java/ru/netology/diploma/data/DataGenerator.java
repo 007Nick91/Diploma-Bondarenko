@@ -10,34 +10,35 @@ import java.util.Random;
 public class DataGenerator {
 
 
-
     private DataGenerator() {
 
     }
+
     private static String approvedCard = "4444444444444441";
     private static String declinedCard = "4444444444444442";
     private static String notRegistredCard = "4444444444444444";
 
-//Генераторы месяца
-   public static String getGenMonth() {
-       return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+    //Генераторы месяца
+    public static String generateMonth() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
 
     }
 
     public static String generateYear() {
-        var year = new String[]{"23","24","25","26","27","28"};
-        return year[new Random().nextInt(year.length)];
+        int index = new Random().nextInt(5) + 1;
+        String year = LocalDate.now().plusYears(index).format(DateTimeFormatter.ofPattern("yy"));
+        return year;
     }
-
 
     public static String generateOwner() {
         var faker = new Faker(new Locale("eng"));
-        return faker.name().lastName() +" " + faker.name().firstName();
+        return faker.name().lastName() + " " + faker.name().firstName();
     }
-    public static int getGenCvc() {
+
+    public static int generateCvc() {
         int min = 100;
         int max = 999;
-        return min + (int)(Math.random()*max);
+        return min + (int) (Math.random() * max);
     }
 
 
@@ -52,5 +53,6 @@ public class DataGenerator {
     public static String getNotRegistredCard() {
         return notRegistredCard;
     }
+
 
 }
