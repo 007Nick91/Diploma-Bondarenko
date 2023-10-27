@@ -21,15 +21,16 @@
 ## Тест кейсы.
 Мной был составлен *43 тест-кейса*, среди которых *15 проваленых* и *28 завершились успешно*, 
 что составляет общий процент успешности завершения автотестов - 65,11%. 
-![Аллюр](https://github.com/007Nick91/Diploma-Bondarenko/assets/125663805/9145b69b-cfa9-41f8-a190-274a44da2465)
-[Allure](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=a9iv392ijgibc5sodlesulk0ib&_ij_reload=RELOAD_ON_SAVE#)
+![Алюр](https://github.com/007Nick91/Diploma-Bondarenko/assets/125663805/e38f9a1d-aa78-48e6-aa29-7f26616f45d9)
+
+[Allure]([http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=a9iv392ijgibc5sodlesulk0ib&_ij_reload=RELOAD_ON_SAVE#](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=offdf32fhav4bleugmrjbcdt1l&_ij_reload=RELOAD_ON_SAVE))
 
 ## Рекомендации.
 Согласно проведенного тестировани, тебуется доработка веб сервиса **"Путешествие дня"**, а именно: 
 
 
         1. Отображение в БД информации об успешно осуществленной покупки с "Отклоненной карты" 
-        как подразделе Купить, так и в подразделе Купить в кредит.
+        как на вкладке "Купить", так и на вкладке "Купить в кредит".
         2. Возможность ввода в поле "Владелец" невалидных значений.
         3. Возможность ввода в поле "Месяц" невалидных значений.
         4. Орфографических ошибок.
