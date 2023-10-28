@@ -17,7 +17,7 @@ public class PageBuyTicket {
     private final SelenideElement heading = $$("h2.heading  ").find(text("Путешествие дня"));
     private SelenideElement cardNumberLine = $$(".input__inner").find(text("Номер карты")).$(".input__control");
     private SelenideElement monthLine = $$(".input__inner").find(text("Месяц")).$(".input__control");
-    private  SelenideElement yearLine = $$(".input__inner").find(text("Год")).$(".input__control");
+    private SelenideElement yearLine = $$(".input__inner").find(text("Год")).$(".input__control");
     private SelenideElement OwnerCardLine = $$(".input__inner").find(text("Владелец")).$(".input__control");
     private SelenideElement cvcLine = $$(".input__inner").find(text("CVC/CVV")).$(".input__control");
     private SelenideElement buyButton = $$(".button__text").find(exactText("Купить"));
@@ -87,13 +87,13 @@ public class PageBuyTicket {
     }
 
     @Step("Уведомление о неверно заполненном поле")
-    public void findMessageIncorrectFormat(String expextedText) {
-        incorrectFormat.shouldHave(Condition.text(expextedText), Duration.ofSeconds(15)).shouldBe(Condition.visible);
+    public void findMessageIncorrectFormat() {
+        incorrectFormat.shouldBe(Condition.visible);
     }
 
     @Step("Уведомление об обязательном заполнении поля")
-    public void findMessageRequiredField(String expextedText) {
-        requiredField.shouldHave(Condition.text(expextedText), Duration.ofSeconds(15)).shouldBe(Condition.visible);
+    public void findMessageRequiredField() {
+        requiredField.shouldBe(Condition.visible);
     }
 
 

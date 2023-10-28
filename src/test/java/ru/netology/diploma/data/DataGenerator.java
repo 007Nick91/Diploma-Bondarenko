@@ -41,6 +41,16 @@ public class DataGenerator {
         return min + (int) (Math.random() * max);
     }
 
+    public static String generateIncorrectNumber() {
+        var data = new String[]{"-1", "13", "1", " "};
+        return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectName() {
+        var inName = new String[]{"P", "Петр Петров", "Petr", "%$", "qw", "йц"};
+        return inName[new Random().nextInt(inName.length)];
+    }
+
 
     public static String getApprovedCard() {
         return approvedCard;

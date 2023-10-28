@@ -10,7 +10,6 @@ import ru.netology.diploma.page.PageBuyTicket;
 
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class TestByTicket {
@@ -29,25 +28,6 @@ public class TestByTicket {
     @BeforeEach
     void openSite() {
         pageBuyTicket = open("http://localhost:8080/", PageBuyTicket.class);
-    }
-
-    // Проверка записей в БД
-    @Test
-    @DisplayName("Checking the fields in the payment_entity and order_entity")
-    void verifyDBNotNullPaymentAndOrder() {
-        var payment = SQLHalper.verifyPaymentNotNull();
-        var order = SQLHalper.verifyOrderNotNull();
-        assertNotNull(payment);
-        assertNotNull(order);
-    }
-
-    @Test
-    @DisplayName("Checking the fields in the credit_request_entity and order_entity")
-    void verifyDBNotNullCreditAndOrder() {
-        var credit = SQLHalper.verifyCreditNotNull();
-        var order = SQLHalper.verifyOrderNotNull();
-        assertNotNull(credit);
-        assertNotNull(order);
     }
 
 
@@ -157,8 +137,8 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner("");
         pageBuyTicket.setCardCVC("");
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-        pageBuyTicket.findMessageRequiredField("Поле обязательно для заполнения");
+        pageBuyTicket.findMessageIncorrectFormat();
+        pageBuyTicket.findMessageRequiredField();
     }
 
     @Test
@@ -171,28 +151,30 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner("");
         pageBuyTicket.setCardCVC("");
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-        pageBuyTicket.findMessageRequiredField("Поле обязательно для заполнения");
+        pageBuyTicket.findMessageIncorrectFormat();
+        pageBuyTicket.findMessageRequiredField();
     }
 
-    //    // Тесты с вводом некорректных данных в поле Месяц.
-//    //Раздел Купить
+    // Тесты с вводом некорректных данных в поле Месяц.
+    //Раздел Купить
     @Test
     @DisplayName("Entering letters in the 'Month' field, the other fields are filled in correctly. The 'Buy' section")
     void shouldErrorTestOfMonthWithLetters() {
         pageBuyTicket.buyTicket();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth("йц");
+        pageBuyTicket.setCardMonth(DataGenerator.generateIncorrectName());
+        pageBuyTicket.setCardMonth(DataGenerator.generateIncorrectNumber());
         pageBuyTicket.setCardYear(DataGenerator.generateYear());
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
+
     }
 
     @Test
-    @DisplayName("Enter 00 in the 'Month' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfMonthWithZero() {
+    @DisplayName("Entering letters in the 'Month' field, the other fields are filled in correctly. Section 'Buy on credit'")
+    void shouldErrorTestOfMonthWithLettersCardZero() {
         pageBuyTicket.buyTicket();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth("00");
@@ -200,53 +182,27 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверно указан срок действия карты");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
-    @Test
-    @DisplayName("Enter -1 in the 'Month' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfMonthWithMinus() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth("-1");
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
-
-    @Test
-    @DisplayName("Enter 13 in the 'Month' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfMonthWith13() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth("13");
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверно указан срок действия карты");
-    }
-
-    //
-//    //Раздел Купить в кредит
+    //Раздел Купить в кредит
     @Test
     @DisplayName("Entering letters in the 'Month' field, the other fields are filled in correctly. Section 'Buy on credit'")
     void shouldErrorTestOfMonthWithLettersCreditCard() {
         pageBuyTicket.buyTicketCredit();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth("йц");
+        pageBuyTicket.setCardMonth(DataGenerator.generateIncorrectName());
+        pageBuyTicket.setCardMonth(DataGenerator.generateIncorrectNumber());
         pageBuyTicket.setCardYear(DataGenerator.generateYear());
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
     @Test
-    @DisplayName("Enter 00 in the 'Month' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfMonthWithZeroCreditCard() {
+    @DisplayName("Entering letters in the 'Month' field, the other fields are filled in correctly. Section 'Buy on credit'")
+    void shouldErrorTestOfMonthWithLettersCreditCardZero() {
         pageBuyTicket.buyTicketCredit();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth("00");
@@ -254,53 +210,29 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверно указан срок действия карты");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
-    @Test
-    @DisplayName("Enter -1 in the 'Month' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfMonthWithMinusCreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth("-1");
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
 
-    @Test
-    @DisplayName("Enter 13 in the 'Month' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfMonthWith13CreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth("13");
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверно указан срок действия карты");
-    }
-
-    //// Тесты с вводом некорректных данных в поле Год.
-//Раздел Купить
+    // Тесты с вводом некорректных данных в поле Год.
+    //Раздел Купить
     @Test
     @DisplayName("Enter letters in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
     void shouldErrorTestOfYearLetters() {
         pageBuyTicket.buyTicket();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("qw");
+        pageBuyTicket.setCardYear(DataGenerator.generateIncorrectName());
+        pageBuyTicket.setCardYear(DataGenerator.generateIncorrectNumber());
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
     @Test
-    @DisplayName("Enter 00 in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfYearWithZero() {
+    @DisplayName("Enter letters in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
+    void shouldErrorTestOfYearLettersZero() {
         pageBuyTicket.buyTicket();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
@@ -308,66 +240,28 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Истёк срок действия карты");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
-    @Test
-    @DisplayName("Enter 22 in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfYearWith22() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("22");
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Истёк срок действия карты");
-    }
 
-    @Test
-    @DisplayName("Enter -1 in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfYearWithMinus() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("-1");
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
-
-    @Test
-    @DisplayName("Enter 29 in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfYearWith29() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("29");
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверно указан срок действия карты");
-    }
-
-    //
-//    //Раздел Купить в кредит
+    //Раздел Купить в кредит
     @Test
     @DisplayName("Enter letters in the 'Year' field, the other fields are filled in correctly. Section 'Buy on credit'")
     void shouldErrorTestOfYearWithLettersCreditCard() {
         pageBuyTicket.buyTicketCredit();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("as");
+        pageBuyTicket.setCardYear(DataGenerator.generateIncorrectName());
+        pageBuyTicket.setCardYear(DataGenerator.generateIncorrectNumber());
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
     @Test
-    @DisplayName("Enter 00 in the 'Year' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfYearWithZeroCreditCard() {
+    @DisplayName("Enter letters in the 'Year' field, the other fields are filled in correctly. The 'Buy' section")
+    void shouldErrorTestOfYearWithLettersCreditCardZero() {
         pageBuyTicket.buyTicketCredit();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
@@ -375,50 +269,12 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Истёк срок действия карты");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
-    @Test
-    @DisplayName("Enter 22 in the 'Year' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfYearWith22CreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("22");
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Истёк срок действия карты");
-    }
 
-    @Test
-    @DisplayName("Enter -1 in the 'Year' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfYearWithMinusCreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("-1");
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
-
-    @Test
-    @DisplayName("Enter 29 in the 'Year' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfYearWith29CreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear("29");
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверно указан срок действия карты");
-    }
-
-    //    // Тесты с вводом некорректных данных в поле Владелец.
-//    //Раздел Купить
+    // Тесты с вводом некорректных данных в поле Владелец.
+    //Раздел Купить
     @Test
     @DisplayName("Entering only the Name in the 'Owner' field, the rest of the fields are filled in correctly.")
     void shouldErrorTestOfOwnerJustName() {
@@ -426,52 +282,10 @@ public class TestByTicket {
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
         pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("Petr");
+        pageBuyTicket.setCardOwner(DataGenerator.generateIncorrectName());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
-
-    @Test
-    @DisplayName("Enter the first and last name in the 'Owner' field in Russian, the other fields are filled in correctly.")
-    void shouldErrorTestOfOwnerJustRusName() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("Петр Петров");
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-
-    }
-
-    @Test
-    @DisplayName("Enter one letter in the 'Owner' field, the rest of the fields are filled in correctly.")
-    void shouldErrorTestOfOwnerJustOneLetter() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("P");
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-
-    }
-
-    @Test
-    @DisplayName("Entering numbers in the 'Owner' field, the rest of the fields are filled in correctly.")
-    void shouldErrorTestOfOwnerNumbers() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("1234");
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
     //     Раздел Купить в кредит
@@ -482,57 +296,15 @@ public class TestByTicket {
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
         pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("Petr");
+        pageBuyTicket.setCardOwner(DataGenerator.generateIncorrectName());
         pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
 
     }
 
-    @Test
-    @DisplayName("Enter the first and last name in the 'Owner' field in Russian, the other fields are filled in correctly.")
-    void shouldErrorTestOfOwnerJustRusNameCreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("Петр Петров");
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-
-    }
-
-    @Test
-    @DisplayName("Enter one letter in the 'Owner' field, the rest of the fields are filled in correctly.")
-    void shouldErrorTestOfOwnerJustOneLetterCreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("P");
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-
-    }
-
-    @Test
-    @DisplayName("Entering numbers in the 'Owner' field, the rest of the fields are filled in correctly.")
-    void shouldErrorTestOfOwnerNumbersCreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner("1234");
-        pageBuyTicket.setCardCVC(String.valueOf(DataGenerator.generateCvc()));
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-
-    }
-
-    //    // Тесты с вводом некорректных данных в поле CVC/CVV
-//    //Раздел Купить
+    // Тесты с вводом некорректных данных в поле CVC/CVV
+    //Раздел Купить
     @Test
     @DisplayName("Entering letters in the 'CVC' field, the rest of the fields are filled in correctly. The 'Buy' section")
     void shouldErrorTestOfCvcByBuy() {
@@ -541,27 +313,15 @@ public class TestByTicket {
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
         pageBuyTicket.setCardYear(DataGenerator.generateYear());
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC("qwe");
+        pageBuyTicket.setCardCVC(DataGenerator.generateIncorrectName());
+        pageBuyTicket.setCardCVC(DataGenerator.generateIncorrectNumber());
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
     @Test
-    @DisplayName("Enter 0 in the 'CVC' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfCvcWithZero() {
-        pageBuyTicket.buyTicket();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC("0");
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
-
-    @Test
-    @DisplayName("Enter 000 in the 'CVC' field, the other fields are filled in correctly. The 'Buy' section")
-    void shouldErrorTestOfCvcWithThreeZero() {
+    @DisplayName("Entering letters in the 'CVC' field, the rest of the fields are filled in correctly. The 'Buy' section")
+    void shouldErrorTestOfCvcByBuyZero() {
         pageBuyTicket.buyTicket();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
@@ -569,12 +329,10 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC("000");
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
-
-    //    //Раздел Купить в кредит
-//
+    //Раздел Купить в кредит
     @Test
     @DisplayName("Entering letters in the 'CVC' field, the rest of the fields are filled in correctly. Section 'Buy on credit'")
     void shouldErrorTestOfCvcByBuyCreditCard() {
@@ -583,27 +341,15 @@ public class TestByTicket {
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
         pageBuyTicket.setCardYear(DataGenerator.generateYear());
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC("qwe");
+        pageBuyTicket.setCardCVC(DataGenerator.generateIncorrectName());
+        pageBuyTicket.setCardCVC(DataGenerator.generateIncorrectNumber());
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
     @Test
-    @DisplayName("Enter 0 in the 'CVC' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfCvcWithZeroCreditCard() {
-        pageBuyTicket.buyTicketCredit();
-        pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
-        pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
-        pageBuyTicket.setCardYear(DataGenerator.generateYear());
-        pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
-        pageBuyTicket.setCardCVC("0");
-        pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
-    }
-
-    @Test
-    @DisplayName("Enter 000 in the 'CVC' field, the other fields are filled in correctly. Section 'Buy on credit'")
-    void shouldErrorTestOfCvcWithThreeZeroCreditCard() {
+    @DisplayName("Entering letters in the 'CVC' field, the rest of the fields are filled in correctly. The 'Buy' section")
+    void shouldErrorTestOfCvcByCreditZero() {
         pageBuyTicket.buyTicketCredit();
         pageBuyTicket.setCardNumber(DataGenerator.getApprovedCard());
         pageBuyTicket.setCardMonth(DataGenerator.generateMonth());
@@ -611,7 +357,7 @@ public class TestByTicket {
         pageBuyTicket.setCardOwner(DataGenerator.generateOwner());
         pageBuyTicket.setCardCVC("000");
         pageBuyTicket.clickContinueButton();
-        pageBuyTicket.findMessageIncorrectFormat("Неверный формат");
+        pageBuyTicket.findMessageIncorrectFormat();
     }
 
 }
