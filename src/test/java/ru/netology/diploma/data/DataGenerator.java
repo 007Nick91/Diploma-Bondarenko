@@ -40,14 +40,44 @@ public class DataGenerator {
         int max = 999;
         return min + (int) (Math.random() * max);
     }
-
+// Генераторы некорректных данных
     public static String generateIncorrectNumber() {
-        var data = new String[]{"-1", "13", "1", " "};
+    var data = new String[]{"0", "1", "13", "29", "99"};
+    return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectZero() {
+        var data = new String[]{ "000", "0000", "0000"};
+        return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectNegative() {
+        var data = new String[]{"-1", "-5", "-13", "-99"};
+        return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectSpace() {
+        var data = new String[]{" ", "  ", "   "};
+        return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectletters() {
+        var data = new String[]{"q", "qw","qwe","qwer"};
+        return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectSymbols() {
+        var data = new String[]{"@", "@#", "@#$","@#$%"};
+        return data[new Random().nextInt(data.length)];
+    }
+
+    public static String generateIncorrectRus() {
+        var data = new String[]{"Петр Петров", "Иван Иванов","Оля Ольгина","Аля Ким"};
         return data[new Random().nextInt(data.length)];
     }
 
     public static String generateIncorrectName() {
-        var inName = new String[]{"P", "Петр Петров", "Petr", "%$", "qw", "йц"};
+        var inName = new String[]{"Ivan","Olya","Petr","Alya","Oleg"};
         return inName[new Random().nextInt(inName.length)];
     }
 

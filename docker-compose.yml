@@ -10,6 +10,8 @@ services:
     restart: always
     ports:
       - '3306:3306'
+    volumes:
+      - ./data_mysql:/var/lib/mysql
     environment:
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=app
@@ -20,6 +22,8 @@ services:
     restart: always
     ports:
       - '5432:5432'
+    volumes:
+      - ./data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
