@@ -19,12 +19,13 @@
 [Task Pages](https://github.com/netology-code/qa-diploma#readme).
 
 ## Тест кейсы.
-Мной был составлен *22 тест-кейса*, среди которых *10 проваленых* и *12 завершились успешно*, 
-что составляет общий процент успешности завершения автотестов - 54,54%. 
-![аллюр](https://github.com/007Nick91/Diploma-Bondarenko/assets/125663805/21fc33e4-637c-436a-bee9-df63268dde44)
+Мной был составлено *48 тест-кейсов*, среди которых *18 проваленых* и *30 завершились успешно*, 
+что составляет общий процент успешности завершения автотестов - 62,5%. 
+![asd](https://github.com/007Nick91/Diploma-Bondarenko/assets/125663805/c508e96d-858f-4399-8e9b-a3334680176f)
 
 
-[Allure]([[http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=a9iv392ijgibc5sodlesulk0ib&_ij_reload=RELOAD_ON_SAVE#](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=offdf32fhav4bleugmrjbcdt1l&_ij_reload=RELOAD_ON_SAVE)](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=tu6uo7dvi9dt1ps2p6lq8c7lqr&_ij_reload=RELOAD_ON_SAVE#))
+
+[Allure]([[[http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=a9iv392ijgibc5sodlesulk0ib&_ij_reload=RELOAD_ON_SAVE#](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=offdf32fhav4bleugmrjbcdt1l&_ij_reload=RELOAD_ON_SAVE)](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=tu6uo7dvi9dt1ps2p6lq8c7lqr&_ij_reload=RELOAD_ON_SAVE#)](http://localhost:63342/Diploma/build/reports/allure-report/allureReport/index.html?_ijt=121f4tv499d81i0an1vop8d4vq&_ij_reload=RELOAD_ON_SAVE))
 
 ## Рекомендации.
 Согласно проведенного тестировани, тебуется доработка и исправление ошибок на веб-сервисе **"Путешествие дня"**, а именно: 
